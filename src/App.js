@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import superagent from 'superagent';
+import jsonp from 'superagent-jsonp';
 
-class App extends Component {
+export class WeatherApp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentCity: 'Loading...',
+      currentWeather: 'Loading...',
+      currentTemperature: 0,
+      tempFahrenheit: 'F',
+      tempCelsius: 'C'
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Sick weather app</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <ul>
+          <li>{this.state.currentCity}</li>
+          <li>{this.state.currentWeather}</li>
+          <li>{this.state.currentTemperature}{this.state.tempFahrenheit}</li>
+        </ul>
       </div>
     );
   }
 }
 
-export default App;
+export default WeatherApp;
