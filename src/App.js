@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import superagent from 'superagent';
-import jsonp from 'superagent-jsonp';
 
 export class WeatherApp extends Component {
   constructor(props) {
