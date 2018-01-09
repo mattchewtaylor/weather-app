@@ -21,7 +21,7 @@ componentDidMount() {
 
   if (window.navigator.geolocation) { // if geolocation is supported
     navigator.geolocation.getCurrentPosition(
-      (success) => {
+      (position) => {
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
