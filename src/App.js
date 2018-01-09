@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import xhr from 'xhr';
 import './App.css';
-import superagent from 'superagent';
-import jsonp from 'superagent-jsonp'
 
 export class WeatherApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      latitude: null,
+      longitude: null,
       currentCity: 'Loading...',
       currentWeather: 'Loading...',
       currentTemperature: 0,
@@ -15,19 +15,38 @@ export class WeatherApp extends Component {
       tempCelsius: 'C'
     }
   }
-  
+
+componentDidMount() {
+  const coords = {};
+
+  if (window.navigator.geolocation) { // if geolocation is supported
+    navigator.geolocation.getCurrentPosition(
+      (success) => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        });
+      },
+      (error) => {
+        this.setState({
+          error: error.message,
+        });
+      }
+    );
+  } else {
+    // IP Fallback
+  }
+}
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Sick weather app</h1>
-        </header>
-        <ul>
-          <li>{this.state.currentCity}</li>
-          <li>{this.state.currentWeather}</li>
-          <li>{this.state.currentTemperature}{this.state.tempFahrenheit}</li>
-        </ul>
-      </div>
+        <div>
+          <h1>{this.state.latitude}</h1>
+          <h1>{this.state.longitude}</h1>
+          <h1>{this.state.currentCity}</h1>
+          <h1>{this.state.currentWeather}</h1>
+          <h1>{this.state.currentTemperature}{this.state.tempFahrenheit}</h1>
+        </div>
     );
   }
 }
