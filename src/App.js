@@ -8,6 +8,7 @@ export class WeatherApp extends Component {
     this.state = {
       latitude: null,
       longitude: null,
+      error: null,
       currentCity: 'Loading...',
       currentWeather: 'Loading...',
       currentTemperature: 0,
@@ -24,7 +25,8 @@ componentDidMount() {
       (position) => {
         this.setState({
           latitude: position.coords.latitude,
-          longitude: position.coords.longitude
+          longitude: position.coords.longitude,
+          error: null
         });
       },
       (error) => {
