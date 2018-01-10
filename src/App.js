@@ -9,15 +9,11 @@ export class WeatherApp extends Component {
       latitude: null,
       longitude: null,
       error: null,
-      currentCity: 'Loading...',
-      currentWeather: 'Loading...',
-      currentTemperature: 0,
-      tempFahrenheit: 'F',
-      tempCelsius: 'C'
-    }
+      data: {}
+    };
   }
 
-componentDidMount() {
+componentWillMount() {
   const coords = {};
 
   if (window.navigator.geolocation) { // if geolocation is supported
@@ -40,14 +36,37 @@ componentDidMount() {
   }
 }
 
+//TODO: Fetch coordinates after getCurrentPosition
+//TODO: Figure out why xhr request is returning HTML
+
+fetchData() {
+  let urlPrefix = 'api.openweathermap.org/data/2.5/weather?';
+  let urlSuffix = '&APPID=0c6a6226a74942e9bf8a5bdf9992aab6&units=imperial'
+  let lat = 'lat=' + this.state.latitude;
+  let lon = 'lon=' + this.state.longitude;
+  let url = urlPrefix + lat + '&' + lon + urlSuffix;
+  let self = this;
+  xhr({
+    url: url
+  }, function (err, data) {
+    self.setState({
+      data: JSON.parse(data.body)
+    });
+  });
+};
+
   render() {
+    var currentTemp = 'Temp will go here after fetching coordinates';
+    if (this.state.data.list) {
+      currentTemp = this.state.data.list[0].main.temp;
+    }
     return (
         <div>
           <h1>{this.state.latitude}</h1>
           <h1>{this.state.longitude}</h1>
           <h1>{this.state.currentCity}</h1>
           <h1>{this.state.currentWeather}</h1>
-          <h1>{this.state.currentTemperature}{this.state.tempFahrenheit}</h1>
+          <h1>{ currentTemp }{this.state.tempFahrenheit}</h1>
         </div>
     );
   }
