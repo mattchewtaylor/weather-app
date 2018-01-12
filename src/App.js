@@ -13,9 +13,7 @@ export class WeatherApp extends Component {
     };
   }
 
-componentWillMount() {
-  const coords = {};
-
+componentDidMount() {
   if (window.navigator.geolocation) { // if geolocation is supported
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -38,14 +36,14 @@ componentWillMount() {
 
 //TODO: Fetch coordinates after getCurrentPosition
 //TODO: Figure out why xhr request is returning HTML
-
-fetchData() {
+componentWillUpdate() {
   let urlPrefix = 'api.openweathermap.org/data/2.5/weather?';
   let urlSuffix = '&APPID=0c6a6226a74942e9bf8a5bdf9992aab6&units=imperial'
   let lat = 'lat=' + this.state.latitude;
   let lon = 'lon=' + this.state.longitude;
   let url = urlPrefix + lat + '&' + lon + urlSuffix;
   let self = this;
+  console.log(url);
   xhr({
     url: url
   }, function (err, data) {
