@@ -36,7 +36,8 @@ componentDidMount() {
 
 //TODO: Fetch coordinates after getCurrentPosition
 //TODO: Figure out why xhr request is returning HTML
-componentWillUpdate() {
+componentDidUpdate() {
+  debugger;
   let urlPrefix = 'api.openweathermap.org/data/2.5/weather?';
   let urlSuffix = '&APPID=0c6a6226a74942e9bf8a5bdf9992aab6&units=imperial'
   let lat = 'lat=' + this.state.latitude;
